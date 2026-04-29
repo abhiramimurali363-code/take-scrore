@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Registration | Kerala Taekwondo Grand Prix</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0A0A14 0%, #0F0F1A 50%, #0A0A14 100%);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* Main Container */
+        .register-container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+
+        /* Card */
+        .register-card {
+            max-width: 1300px;
+            width: 100%;
+            background: rgba(18, 18, 30, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 56px;
+            border: 1px solid rgba(255, 107, 53, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 107, 53, 0.1);
+            overflow: hidden;
+        }
+
+        /* Two Column Layout */
+        .register-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 0;
+        }
+
+        /* Left Side - Full Size Background Image */
+        .image-section {
+            position: relative;
+            min-height: 600px;
+            overflow: hidden;
+            border-right: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
+            z-index: 1;
+        }
+
+        .image-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 32px;
+            color: white;
+        }
+
+        .tournament-title {
+            text-align: left;
+        }
+
+        .tournament-title h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #FFB347;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .tournament-title h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .tournament-title h1 span {
+            color: #FF6B35;
+        }
+
+        .quote-text {
+            align-self: flex-end;
+            text-align: right;
+            max-width: 80%;
+        }
+
+        .quote-text p {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #FFE6B0;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+            border-left: 3px solid #FF6B35;
+            padding-left: 16px;
+        }
+
+        .event-badge {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .event-badge span {
+            background: rgba(255, 107, 53, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 107, 53, 0.5);
+        }
+
+        /* Right Side - Form */
+        .form-section {
+            padding: 48px 48px;
+            background: rgba(10, 10, 18, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .form-header {
+            margin-bottom: 32px;
+        }
+
+        .form-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #FFE6B0;
+            margin-bottom: 8px;
+        }
+
+        .form-header p {
+            color: #8A8A9A;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #CCCCDD;
+        }
+
+        label i {
+            margin-right: 8px;
+            color: #FFB347;
+            font-size: 0.8rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 18px;
+            background: #1A1A2A;
+            border: 1px solid #2C3E66;
+            border-radius: 24px;
+            color: #EDF2F7;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #FF6B35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.2);
+            background: #22223A;
+        }
+
+        input::placeholder {
+            color: #5A5A70;
+        }
+
+        /* Weight Range Slider */
+        .weight-range-container {
+            background: #1A1A2A;
+            border: 1px solid #2C3E66;
+            border-radius: 24px;
+            padding: 20px;
+        }
+
+        .weight-slider {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: linear-gradient(90deg, #2C3E66, #FF6B35, #FFB347);
+            border-radius: 10px;
+            outline: none;
+            margin: 20px 0;
+        }
+
+        .weight-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            background: #FF6B35;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #FFD966;
+            box-shadow: 0 2px 10px rgba(255, 107, 53, 0.5);
+        }
+
+        .weight-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #FFB347;
+        }
+
+        .weight-value-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 15px;
+        }
+
+        .selected-weight {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FF6B35, #FFB347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .weight-unit {
+            font-size: 0.9rem;
+            color: #8A8A9A;
+        }
+
+        .weight-markers {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.7rem;
+            color: #6C7A91;
+        }
+
+        .weight-category-badge {
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: #FF6B3520;
+            border-radius: 40px;
+            display: inline-block;
+            font-size: 0.8rem;
+            border-left: 3px solid #FF6B35;
+        }
+
+        /* Gender Radio */
+        .gender-group {
+            display: flex;
+            gap: 24px;
+            margin-top: 8px;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .gender-option input {
+            width: 18px;
+            height: 18px;
+            accent-color: #FF6B35;
+            cursor: pointer;
+        }
+
+        .gender-option span {
+            color: #CCCCDD;
+            font-size: 0.9rem;
+        }
+
+        /* Register Button */
+        .register-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #FF6B35, #FFB347);
+            border: none;
+            border-radius: 40px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1E1E2F;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .register-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Error/Success Messages */
+        .error-message {
+            color: #FF6B6B;
+            font-size: 0.75rem;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Login Link */
+        .login-link {
+            text-align: center;
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid #2C3E66;
+        }
+
+        .login-link a {
+            color: #FFB347;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .login-link a:hover {
+            color: #FF6B35;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 1000px) {
+            .register-grid {
+                grid-template-columns: 1fr;
+            }
+            .image-section {
+                min-height: 300px;
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 107, 53, 0.3);
+            }
+            .image-content {
+                justify-content: center;
+                gap: 20px;
+            }
+            .quote-text {
+                align-self: flex-start;
+                text-align: left;
+            }
+            .form-section {
+                padding: 40px 32px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #2E7D32;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .toast.error {
+            background: #C62828;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-card">
+            <div class="register-grid">
+                <!-- Left Side - Full Size Background Image -->
+                <div class="image-section">
+                    <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=800&h=1000&fit=crop" 
+                         alt="Taekwondo Athlete" 
+                         class="bg-image"
+                         onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Taekwondo_competition.jpg/800px-Taekwondo_competition.jpg'">
+                    <div class="image-overlay"></div>
+                    <div class="image-content">
+                        <div class="tournament-title">
+                            <h3><i class="fas fa-fist-raised"></i> KERALA WARRIORS</h3>
+                            <h1>Grand Prix <span>2026</span></h1>
+                        </div>
+                        <div class="quote-text">
+                            <p>"The fight is won or lost<br>far away from witnesses<br>— in the training ground"</p>
+                        </div>
+                        <div class="event-badge">
+                            <span><i class="fas fa-medal"></i> International Event</span>
+                            <span><i class="fas fa-calendar"></i> May 2026</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Kerala, India</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Registration Form -->
+                <div class="form-section">
+                    <div class="form-header">
+                        <h2>Player Registration</h2>
+                        <p>Fill in the details to join the tournament</p>
+                    </div>
+
+                    <form id="registrationForm">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="fullName" placeholder="Enter your full name" required>
+                            <div class="error-message" id="nameError">Please enter your name</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="email" placeholder="your@email.com" required>
+                            <div class="error-message" id="emailError">Please enter a valid email address</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fas fa-venus-mars"></i> Gender</label>
+                            <div class="gender-group">
+                                <label class="gender-option">
+                                    <input type="radio" name="gender" value="Male"> <span>Male</span>
+                                </label>
+                                <label class="gender-option">
+                                    <input type="radio" name="gender" value="Female"> <span>Female</span>
+                                </label>
+                                <label class="gender-option">
+                                    <input type="radio" name="gender" value="Other"> <span>Other</span>
+                                </label>
+                            </div>
+                            <div class="error-message" id="genderError">Please select your gender</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-map-marker-alt"></i> District</label>
+                                <select id="district">
+                                    <option value="">Select District</option>
+                                    <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                    <option value="Kollam">Kollam</option>
+                                    <option value="Pathanamthitta">Pathanamthitta</option>
+                                    <option value="Alappuzha">Alappuzha</option>
+                                    <option value="Kottayam">Kottayam</option>
+                                    <option value="Idukki">Idukki</option>
+                                    <option value="Ernakulam">Ernakulam</option>
+                                    <option value="Thrissur">Thrissur</option>
+                                    <option value="Palakkad">Palakkad</option>
+                                    <option value="Malappuram">Malappuram</option>
+                                    <option value="Kozhikode">Kozhikode</option>
+                                    <option value="Wayanad">Wayanad</option>
+                                    <option value="Kannur">Kannur</option>
+                                    <option value="Kasaragod">Kasaragod</option>
+                                </select>
+                                <div class="error-message" id="districtError">Please select your district</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label><i class="fas fa-weight-hanging"></i> Weight (kg)</label>
+                                <div class="weight-range-container">
+                                    <div class="weight-value-display">
+                                        <span class="selected-weight" id="weightValue">70</span>
+                                        <span class="weight-unit">kg</span>
+                                    </div>
+                                    <input type="range" id="weightSlider" class="weight-slider" min="30" max="120" value="70" step="1">
+                                    <div class="weight-markers">
+                                        <span>30kg</span>
+                                        <span>50kg</span>
+                                        <span>70kg</span>
+                                        <span>90kg</span>
+                                        <span>120kg</span>
+                                    </div>
+                                    <div class="weight-category-badge" id="weightCategory">
+                                        🏆 Middleweight (63-74kg)
+                                    </div>
+                                </div>
+                                <div class="error-message" id="weightError">Please select your weight</div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="register-btn">
+                            <i class="fas fa-arrow-right"></i> Register & Continue
+                        </button>
+
+                        <div class="login-link">
+                            <a href="#" id="gotoTournamentLink">Already registered? Go to Tournament →</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"><i class="fas fa-check-circle"></i> <span id="toastMsg">Success!</span></div>
+
+    <script>
+        // Get registered players from localStorage or initialize empty array
+        let registeredPlayers = [];
+
+        // Weight category mapping function
+        function getWeightCategory(weight) {
+            if (weight <= 54) return "Flyweight (-54kg)";
+            if (weight <= 58) return "Bantamweight (-58kg)";
+            if (weight <= 63) return "Featherweight (-63kg)";
+            if (weight <= 68) return "Lightweight (-68kg)";
+            if (weight <= 74) return "Welterweight (-74kg)";
+            if (weight <= 80) return "Middleweight (-80kg)";
+            return "Heavyweight (+80kg)";
+        }
+
+        function getOfficialWeightClass(weight) {
+            if (weight <= 54) return "-54kg";
+            if (weight <= 58) return "-58kg";
+            if (weight <= 63) return "-63kg";
+            if (weight <= 68) return "-68kg";
+            if (weight <= 74) return "-74kg";
+            if (weight <= 80) return "-80kg";
+            return "+80kg";
+        }
+
+        // Update weight display and category
+        const weightSlider = document.getElementById('weightSlider');
+        const weightValue = document.getElementById('weightValue');
+        const weightCategory = document.getElementById('weightCategory');
+
+        function updateWeightDisplay() {
+            const weight = parseInt(weightSlider.value);
+            weightValue.textContent = weight;
+            const category = getWeightCategory(weight);
+            const icon = weight <= 58 ? "🐣" : (weight <= 74 ? "⚡" : "🦁");
+            weightCategory.innerHTML = `${icon} ${category}`;
+        }
+
+        weightSlider.addEventListener('input', updateWeightDisplay);
+        updateWeightDisplay();
+
+        function loadRegisteredPlayers() {
+            const stored = localStorage.getItem('tkd_registered_players');
+            if (stored) {
+                registeredPlayers = JSON.parse(stored);
+            } else {
+                registeredPlayers = [];
+            }
+        }
+
+        function saveRegisteredPlayers() {
+            localStorage.setItem('tkd_registered_players', JSON.stringify(registeredPlayers));
+        }
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.innerText = message;
+            toast.className = 'toast ' + (isError ? 'error' : '');
+            toast.style.display = 'flex';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        function validateForm() {
+            let isValid = true;
+
+            // Name validation
+            const name = document.getElementById('fullName').value.trim();
+            if (name.length < 2) {
+                document.getElementById('nameError').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('nameError').classList.remove('show');
+            }
+
+            // Email validation
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById('emailError').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('emailError').classList.remove('show');
+                // Check if email already registered
+                const existingPlayer = registeredPlayers.find(p => p.email === email);
+                if (existingPlayer) {
+                    showToast('This email is already registered!', true);
+                    document.getElementById('emailError').innerText = 'This email is already registered';
+                    document.getElementById('emailError').classList.add('show');
+                    isValid = false;
+                } else {
+                    document.getElementById('emailError').innerText = 'Please enter a valid email address';
+                }
+            }
+
+            // Gender validation
+            const genderSelected = document.querySelector('input[name="gender"]:checked');
+            if (!genderSelected) {
+                document.getElementById('genderError').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('genderError').classList.remove('show');
+            }
+
+            // District validation
+            const district = document.getElementById('district').value;
+            if (!district) {
+                document.getElementById('districtError').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('districtError').classList.remove('show');
+            }
+
+            // Weight validation (always has value from slider)
+            const weight = parseInt(weightSlider.value);
+            if (isNaN(weight) || weight < 30 || weight > 120) {
+                document.getElementById('weightError').classList.add('show');
+                isValid = false;
+            } else {
+                document.getElementById('weightError').classList.remove('show');
+            }
+
+            return isValid;
+        }
+
+        // Handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                const name = document.getElementById('fullName').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const gender = document.querySelector('input[name="gender"]:checked').value;
+                const district = document.getElementById('district').value;
+                const weightKg = parseInt(weightSlider.value);
+                const weightClass = getOfficialWeightClass(weightKg);
+                
+                // Create new player object
+                const newPlayer = {
+                    id: registeredPlayers.length,
+                    name: name,
+                    email: email,
+                    gender: gender,
+                    district: district,
+                    weight: weightKg,
+                    weightClass: weightClass,
+                    club: "Kerala Taekwondo Academy",
+                    photoUrl: `https://randomuser.me/api/portraits/${gender === 'Male' ? 'men' : 'women'}/${(registeredPlayers.length % 30) + 1}.jpg`,
+                    registrationDate: new Date().toISOString()
+                };
+                
+                registeredPlayers.push(newPlayer);
+                saveRegisteredPlayers();
+                
+                showToast(`Welcome ${name}! Redirecting to tournament...`);
+                
+                // Store current registration in session for auto-fill on tournament page
+                sessionStorage.setItem('just_registered', JSON.stringify(newPlayer));
+                
+                // Redirect to index.html (tournament page)
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }
+        });
+
+        // Redirect to tournament page (for already registered users)
+        document.getElementById('gotoTournamentLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = 'index.html';
+        });
+
+        // Load existing registrations on page load
+        loadRegisteredPlayers();
+    </script>
+</body>
+</html>
